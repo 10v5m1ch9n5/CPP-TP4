@@ -15,17 +15,16 @@ private:
     std::string authenticatedUser;
     std::string dateHeure;
     std::string typeRequete;
-    std::string destURL;
     std::string versionHTTP;
     std::string returnCode;
     std::string qteDonnees;
-    std::string referer;
     std::string userAgent;
-    int heure;
-
 public:
     Log(std::ifstream & fs);
     void ToString(int verbose);
+    int heure;
+    std::string referer;
+    std::string destURL;
 };
 
 

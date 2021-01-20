@@ -9,9 +9,11 @@ using namespace std;
 #include <stdlib.h>
 
 #include "Log.h"
+#include "Graphe.h"
 
 int main(int argc, char** argv)
 {
+    Graphe g;
     bool graphe, htmlSeulement, temps;
     char* nomGraphe;
     int heure = -1;
@@ -40,9 +42,10 @@ int main(int argc, char** argv)
         iOption++;
     }
     strncpy(nomFichier, argv[iOption++], 25);
+    string filename(nomFichier);
+    delete[] nomFichier;
 
     // Log parsing
-    string filename(nomFichier);
     ifstream logfile(filename);
     if (!logfile.is_open())
     {
@@ -53,10 +56,16 @@ int main(int argc, char** argv)
     while (!logfile.eof())
     {
         Log* log = new Log(logfile);
+#ifdef DEBUG
         log->ToString(1);
         cout << "--------------------------------------" << endl;
+#endif
+        if (log->destURL.length() > 0)
+            g.Ajouter(log);
         delete log;
     }
+
+    g.ToString();
 
     return 0;
 #ifdef DEBUG
