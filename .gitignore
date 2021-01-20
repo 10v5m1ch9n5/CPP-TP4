@@ -1,2 +1,7 @@
+# C++
 *.o
 *.out
+
+# logs
+*.log
+analog
