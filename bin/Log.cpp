@@ -1,65 +1,63 @@
-//---------- Réalisation de la classe <Xxx> (fichier Xxx.cpp) ------------
+//
+// Created by lucas on 20/01/2021.
+//
 
-//---------------------------------------------------------------- INCLUDE
-
-//-------------------------------------------------------- Include système
-using namespace std;
+#include <fstream>
 #include <iostream>
+#include <cstring>
+using namespace std;
 
-//------------------------------------------------------ Include personnel
-#include "Xxx.h"
+#include "Log.h"
 
-//------------------------------------------------------------- Constantes
-
-//----------------------------------------------------------------- PUBLIC
-
-//----------------------------------------------------- Méthodes publiques
-// type Xxx::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-Xxx & Xxx::operator = ( const Xxx & unXxx )
-// Algorithme :
-//
+Log::Log(std::ifstream &fs)
 {
-} //----- Fin de operator =
+    getline(fs, ip, ' ');
+    getline(fs, userLogName, ' ');
+    getline(fs, authenticatedUser, '[');
+    getline(fs, dateHeure, ']');
+    fs.ignore(1);
+    getline(fs, typeRequete, ' ');
+    getline(fs, destURL, ' ');
+    getline(fs, versionHTTP, ' ');
+    getline(fs, returnCode, ' ');
+    getline(fs, qteDonnees, ' ');
+    getline(fs, referer, ' ');
+    getline(fs, userAgent, '\n');
 
+    if (fs.eof())
+        return;
 
-//-------------------------------------------- Constructeurs - destructeur
-Xxx::Xxx ( const Xxx & unXxx )
-// Algorithme :
-//
+    heure = stoi(dateHeure.substr(12, 2));
+
+    // Enlever les guillemets
+    referer.erase(referer.begin());
+    referer.erase(referer.end()-1);
+    // Enlever le domaine si la page est locale
+    if (referer.substr(0, 31) == "http://intranet-if.insa-lyon.fr")
+        referer.erase(0, 31);
+}
+
+void Log::ToString(int verbose)
 {
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Xxx>" << endl;
-#endif
-} //----- Fin de Xxx (constructeur de copie)
-
-
-Xxx::Xxx ( )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de <Xxx>" << endl;
-#endif
-} //----- Fin de Xxx
-
-
-Xxx::~Xxx ( )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au destructeur de <Xxx>" << endl;
-#endif
-} //----- Fin de ~Xxx
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
+    cout << "BEGIN TOSTRING" << endl;
+    switch (verbose)
+    {
+        case 0:
+            cout << "HEURE=" << heure << endl;
+            cout << "SOURCE=" << referer << endl;
+            cout << "DEST=" << destURL << endl;
+            break;
+        case 1:
+            cout << "Addresse IP : " << ip << endl;
+            cout << "User Log Name : " << userLogName << endl;
+            cout << "Authenticated User : " << authenticatedUser << endl;
+            cout << "Horodatage : " << dateHeure << endl;
+            cout << "Requete HTTP : " << typeRequete << " " << destURL << " " << versionHTTP << endl;
+            cout << "Statut de la requete : " << returnCode << endl;
+            cout << "Quantite de donnees : " << qteDonnees << endl;
+            cout << "Referer : " << referer << endl;
+            cout << "User Agent : " << userAgent << endl;
+            break;
+    }
+    cout << "END TOSTRING" << endl;
+}

@@ -1,10 +1,14 @@
 //
 // Created by lucas on 13/01/2021.
 //
+using namespace std;
+
 #include <cstring>
 #include <iostream>
+#include <fstream>
 #include <stdlib.h>
-using namespace std;
+
+#include "Log.h"
 
 int main(int argc, char** argv)
 {
@@ -36,6 +40,25 @@ int main(int argc, char** argv)
         iOption++;
     }
     strncpy(nomFichier, argv[iOption++], 25);
+
+    // Log parsing
+    string filename(nomFichier);
+    ifstream logfile(filename);
+    if (!logfile.is_open())
+    {
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+        return 1;
+    }
+
+    while (!logfile.eof())
+    {
+        Log* log = new Log(logfile);
+        log->ToString(1);
+        cout << "--------------------------------------" << endl;
+        delete log;
+    }
+
+    return 0;
 #ifdef DEBUG
     cout << "Nom Fichier : " << nomFichier << endl;
     cout << "nomGraphe : " << nomGraphe << endl;

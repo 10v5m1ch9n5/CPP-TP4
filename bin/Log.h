@@ -1,68 +1,32 @@
-//---------- Interface de la classe <Xxx> (fichier Xxx.h) ----------------
-#if ! defined ( XXX_H )
-#define XXX_H
-
-//--------------------------------------------------- Interfaces utilisées
-
-//------------------------------------------------------------- Constantes
-
-//------------------------------------------------------------------ Types
-
-//------------------------------------------------------------------------
-// Rôle de la classe <Xxx>
 //
+// Created by lucas on 20/01/2021.
 //
-//------------------------------------------------------------------------
 
-class Xxx : public Ancetre
+#ifndef CPP_TP4_LOG_H
+#define CPP_TP4_LOG_H
+
+#include <fstream>
+
+class Log
 {
-//----------------------------------------------------------------- PUBLIC
+private:
+    std::string ip;
+    std::string userLogName;
+    std::string authenticatedUser;
+    std::string dateHeure;
+    std::string typeRequete;
+    std::string destURL;
+    std::string versionHTTP;
+    std::string returnCode;
+    std::string qteDonnees;
+    std::string referer;
+    std::string userAgent;
+    int heure;
 
 public:
-//----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-    Xxx & operator = ( const Xxx & unXxx );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
-//-------------------------------------------- Constructeurs - destructeur
-    Xxx ( const Xxx & unXxx );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
-
-    Xxx ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-    virtual ~Xxx ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-//------------------------------------------------------------------ PRIVE
-
-protected:
-//----------------------------------------------------- Méthodes protégées
-
-//----------------------------------------------------- Attributs protégés
-
+    Log(std::ifstream & fs);
+    void ToString(int verbose);
 };
 
-//-------------------------------- Autres définitions dépendantes de <Xxx>
 
-#endif // XXX_H
+#endif //CPP_TP4_LOG_H
