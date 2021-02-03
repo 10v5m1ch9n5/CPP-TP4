@@ -3,6 +3,7 @@
 
 # GraphViz
 *.dot
+*.png
 
 # logs
 anonyme.log
