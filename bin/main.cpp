@@ -15,7 +15,7 @@ using namespace std;
 int main(int argc, char** argv)
 {
     Graphe g;
-    bool graphe, htmlSeulement, temps;
+    bool graphe = false, htmlSeulement = false, temps = false;
     char* nomGraphe;
     int heure = -1;
     char* nomFichier = new char [25];
@@ -70,12 +70,8 @@ int main(int argc, char** argv)
                 continue;
             if (temps && heure != log->heure)
                 continue;
-
             if (graphe)
-            {
                 g.Ajouter(log);
-                cout << "Ajout de " << log->referer << "=>" << log->destURL << endl;
-            }
 
             hc.Incrementer(log->destURL);
         }
@@ -86,7 +82,12 @@ int main(int argc, char** argv)
     }
 
     if (graphe)
-        g.ToString();
+    {
+        ofstream graphvz(nomGraphe);
+        g.ToString(graphvz);
+        cout << "Dot-file " << nomGraphe << " generated" << endl;
+        graphvz.close();
+    }
     hc.ToString();
 
     return 0;

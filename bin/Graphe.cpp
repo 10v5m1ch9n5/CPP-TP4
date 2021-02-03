@@ -4,7 +4,6 @@
 
 using namespace std;
 
-#include <iostream>
 #include <string>
 #include <map>
 
@@ -18,20 +17,34 @@ Graphe::Graphe()
 
 void Graphe::Ajouter(Log *log)
 {
-    sommet2sommet.emplace(log->referer, log->destURL);
+    pair<string,string> nouv(log->referer, log->destURL);
 
-    map<string , int>::iterator it;
-    it = sommet2hit.find(log->destURL);
-    if (it != sommet2hit.end())
-        sommet2hit[log->destURL]++;
+    page2int.emplace(log->referer, page2int.size());
+    page2int.emplace(log->destURL, page2int.size());
+
+    map<pair<string,string>,int>::iterator it;
+    it = graphe.find(nouv);
+    if (it != graphe.end())
+        graphe[nouv]++;
     else
-        sommet2hit.emplace(log->destURL, 1);
+        graphe.emplace(nouv, 1);
 }
 
-void Graphe::ToString()
+void Graphe::ToString(ofstream & fs)
 {
-    for (map<string, string>::iterator it = sommet2sommet.begin(); it != sommet2sommet.end(); ++it)
+    fs << "digraph {" << endl;
+
+    for (map<string, int>::iterator it = page2int.begin(); it != page2int.end(); ++it)
     {
-        cout << it->first << " => " << it->second << " : " << sommet2hit[it->second] << " hits" << endl;
+        fs << "node" << it->second << " [label=\"" << it->first << "\"];" << endl;
     }
+
+    for (map < pair < string, string >, int > ::iterator it = graphe.begin(); it != graphe.end();
+    ++it)
+    {
+        fs << "node" << page2int[it->first.first] << " -> node" << page2int[it->first.second] << " [label=\""
+             << it->second << "\"];" << endl;
+    }
+
+    fs << "}" << endl;
 }

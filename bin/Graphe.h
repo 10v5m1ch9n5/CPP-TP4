@@ -7,18 +7,18 @@
 
 #include <map>
 #include <string>
+#include <fstream>
 
 
 class Graphe
 {
 private:
-    std::map<std::string, std::string> sommet2sommet;
-    std::map<std::string, int> sommet2hit;
+    std::map<std::pair<std::string,std::string>,int> graphe;
+    std::map<std::string,int> page2int;
 public:
     Graphe();
     void Ajouter(Log* log);
-    void Print();
-    void ToString();
+    void ToString(std::ofstream & fs);
 };
 
 
