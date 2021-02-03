@@ -42,7 +42,7 @@ void HitCounter::ToString()
 
     for (std::multimap<int,std::string>::reverse_iterator rit = mm.rbegin(); rit != mm.rend(); ++rit)
     {
-        std::cout << rit->second << " " << rit->first << std::endl;
+        std::cout << rit->second << " (" << rit->first << " hits)" << std::endl;
         if (i++ >= 10)
             break;
     }

@@ -39,6 +39,8 @@ int main(int argc, char** argv)
         if (strcmp(argv[iOption], "-t") == 0)
         {
             heure = atoi(argv[++iOption]);
+            cout << "Warning : only hits between " << heure << "h and " << heure+1 << "h have been taken into account" << endl;
+            temps = true;
         }
         iOption++;
     }
@@ -65,6 +67,8 @@ int main(int argc, char** argv)
         if (log->destURL.length() > 0)
         {
             if (htmlSeulement && !log->isHTML)
+                continue;
+            if (temps && heure != log->heure)
                 continue;
 
             if (graphe)
