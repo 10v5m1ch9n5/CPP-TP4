@@ -37,8 +37,10 @@ Log::Log(std::ifstream &fs)
     if (referer.substr(0, 31) == "http://intranet-if.insa-lyon.fr")
         referer.erase(0, 31);
 
-    isHTML = regex_match(destURL, regex(".*\\.html"));
-    // cout << destURL << " : " << isHTML << endl;
+    bool estImage = regex_match(destURL, regex(".*\\.png")) || regex_match(destURL, regex(".*\\.jpg")) || regex_match(destURL, regex(".*\\.ico")) || regex_match(destURL, regex(".*\\.gif"));
+    bool estJSouCSS = regex_match(destURL, regex(".*\\.js")) || regex_match(destURL, regex(".*\\.css"));
+
+    isHTML = !estImage && !estJSouCSS;
 }
 
 void Log::ToString(int verbose)
