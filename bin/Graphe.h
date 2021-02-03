@@ -8,6 +8,7 @@
 #include <map>
 #include <string>
 #include <fstream>
+#include "Log.h"
 
 
 class Graphe

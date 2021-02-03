@@ -4,15 +4,13 @@
 
 using namespace std;
 
-#include <string>
-#include <map>
-
-#include "Log.h"
 #include "Graphe.h"
 
 Graphe::Graphe()
 {
-
+#ifdef MAP
+    cout << "Appel au constructeur de Graphe" << endl;
+#endif
 }
 
 void Graphe::Ajouter(Log *log)

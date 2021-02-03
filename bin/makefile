@@ -5,9 +5,16 @@ analog:main.o Log.o Graphe.o HitCounter.o
 	$(CC) -o $@ $^
 
 main.o:main.cpp
-Log.o:Log.h Log.cpp
-Graphe.o:Graphe.h Graphe.cpp
+	$(CC) -c $(CPPFLAGS) $<
+
+Log.o:Log.cpp Log.h
+	$(CC) -c $(CPPFLAGS) $<
+
+Graphe.o:Graphe.cpp Graphe.h
+	$(CC) -c $(CPPFLAGS) $<
+
 HitCounter.o:HitCounter.cpp
+	$(CC) -c $(CPPFLAGS) $<
 
 clean:
 	@rm -f *.out *.o
