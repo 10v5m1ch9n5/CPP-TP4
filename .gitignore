@@ -1,6 +1,9 @@
 # C++
 *.o
 
+# GraphViz
+*.dot
+
 # logs
-*.log
+anonyme.log
 analog
