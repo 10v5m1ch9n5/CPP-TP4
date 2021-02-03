@@ -1,6 +1,5 @@
 # C++
 *.o
-*.out
 
 # logs
 *.log
