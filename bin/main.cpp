@@ -64,11 +64,15 @@ int main(int argc, char** argv)
 #endif
         if (log->destURL.length() > 0)
         {
+            if (htmlSeulement && !log->isHTML)
+                continue;
+
             if (graphe)
             {
                 g.Ajouter(log);
                 cout << "Ajout de " << log->referer << "=>" << log->destURL << endl;
             }
+
             hc.Incrementer(log->destURL);
         }
 #ifdef DEBUG_G

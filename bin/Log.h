@@ -25,6 +25,7 @@ public:
     int heure;
     std::string referer;
     std::string destURL;
+    bool isHTML;
 };
 
 

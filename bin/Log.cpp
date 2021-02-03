@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
+#include <regex>
 using namespace std;
 
 #include "Log.h"
@@ -35,6 +36,9 @@ Log::Log(std::ifstream &fs)
     // Enlever le domaine si la page est locale
     if (referer.substr(0, 31) == "http://intranet-if.insa-lyon.fr")
         referer.erase(0, 31);
+
+    isHTML = regex_match(destURL, regex(".*\\.html"));
+    // cout << destURL << " : " << isHTML << endl;
 }
 
 void Log::ToString(int verbose)
