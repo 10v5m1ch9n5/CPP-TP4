@@ -10,6 +10,7 @@ using namespace std;
 
 #include "Log.h"
 #include "Graphe.h"
+#include "HitCounter.h"
 
 int main(int argc, char** argv)
 {
@@ -53,19 +54,32 @@ int main(int argc, char** argv)
         return 1;
     }
 
+    HitCounter hc;
     while (!logfile.eof())
     {
         Log* log = new Log(logfile);
-#ifdef DEBUG
+#ifdef DEBUG_L
         log->ToString(1);
         cout << "--------------------------------------" << endl;
 #endif
         if (log->destURL.length() > 0)
-            g.Ajouter(log);
+        {
+            if (graphe)
+            {
+                g.Ajouter(log);
+                cout << "Ajout de " << log->referer << "=>" << log->destURL << endl;
+            }
+            hc.Incrementer(log->destURL);
+        }
+#ifdef DEBUG_G
+        g.ToString();
+#endif
         delete log;
     }
 
-    g.ToString();
+    if (graphe)
+        g.ToString();
+    hc.ToString();
 
     return 0;
 #ifdef DEBUG
