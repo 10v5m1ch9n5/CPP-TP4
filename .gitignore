@@ -9,3 +9,6 @@
 # logs
 anonyme.log
 analog
+
+# CLion
+.idea
