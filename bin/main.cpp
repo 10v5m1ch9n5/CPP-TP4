@@ -67,9 +67,15 @@ int main(int argc, char** argv)
         if (log->destURL.length() > 0)
         {
             if (htmlSeulement && !log->isHTML)
+            {
+                delete log;
                 continue;
+            }
             if (temps && heure != log->heure)
+            {
+                delete log;
                 continue;
+            }
             if (graphe)
                 g.Ajouter(log);
 
@@ -87,6 +93,7 @@ int main(int argc, char** argv)
         g.ToString(graphvz);
         cout << "Dot-file " << nomGraphe << " generated" << endl;
         graphvz.close();
+        delete[] nomGraphe;
     }
     hc.ToString();
 
