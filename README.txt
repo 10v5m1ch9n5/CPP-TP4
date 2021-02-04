@@ -2,7 +2,6 @@ Analyse de logs serveur Apache
 https://github.com/10v5m1ch9n5/POO-TP4
 
 ------------------------------------------
-
 Affiche les 10 ressources les plus accédées et génère éventuellement un graphe de la navigation enregistrée.
 
 ------------------------------------------
