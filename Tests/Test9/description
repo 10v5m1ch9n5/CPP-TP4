@@ -1,1 +1,1 @@
-Exécution du programme sur le fichier court.log avec l'option -e permettant de n'analyser que les fichiers HTML.
+Exécution du programme sur le fichier court.log avec l'option -e permettant d'exclure les fichiers image, css et javascript de l'analyse.
